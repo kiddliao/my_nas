@@ -1,0 +1,1 @@
+sudo /volume1/homes/liaohan/CODE/anaconda3/bin/python  /volume1/homes/liaohan/CODE/send_mail/lh_send_mail.py >> /volume1/homes/liaohan/CODE/send_mail/send_mail.log
