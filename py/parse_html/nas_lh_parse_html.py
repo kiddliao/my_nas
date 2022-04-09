@@ -21,21 +21,28 @@ for ii, metadata in enumerate(metadatas):
 
         # if '退款成功' in status:
         #     continue
-        real_name = meta_html.xpath("//div[position()=1]/div[position()=1]/div[position()=1]/div[position()=1]/span/text()")[1]
-        phone = meta_html.xpath("//div[position()=1]/div[position()=1]/div[position()=1]/div[position()=1]/span/text()")[2]
-        tmp_user_name = meta_html.xpath("//div[position()=1]/div[position()=1]/div[position()=2]/div[position()=2]/text()")
+        real_name = \
+        meta_html.xpath("//div[position()=1]/div[position()=1]/div[position()=1]/div[position()=1]/span/text()")[1]
+        phone = \
+        meta_html.xpath("//div[position()=1]/div[position()=1]/div[position()=1]/div[position()=1]/span/text()")[2]
+        tmp_user_name = meta_html.xpath(
+            "//div[position()=1]/div[position()=1]/div[position()=2]/div[position()=2]/text()")
         if len(tmp_user_name) == 0:
             user_name = ''
         else:
             user_name = tmp_user_name[0]
-
-        tmp_address = meta_html.xpath("//div[position()=1]/div[position()=1]/div[position()=3]/div[position()=1]/text()")
-        if len(tmp_address) == 0:
-            address = ''
+        if not user_name:
+            print()
         else:
-            address = tmp_address[0].replace('\n', ' ')
+            tmp_address = meta_html.xpath(
+                "//div[position()=1]/div[position()=1]/div[position()=2]/div[position()=1]/text()")
+            if len(tmp_address) == 0:
+                address = ''
+            else:
+                address = tmp_address[0].replace('\n', ' ')
 
-        tmp_goods_name = meta_html.xpath("//div[position()=2]/div/div[position()=1]/div[position()=2]/div[position()=1]/div[position()=1]/div[position()=1]/text()")
+        tmp_goods_name = meta_html.xpath(
+            "//div[position()=2]/div/div[position()=1]/div[position()=2]/div[position()=1]/div[position()=1]/div[position()=1]/text()")
         goods_name = ','.join(tmp_goods_name)
 
         tmp_order_time = meta_html.xpath("//div[position()=1]/div[position()=3]//div[position()=2]/text()")
