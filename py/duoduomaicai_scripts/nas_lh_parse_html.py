@@ -1,7 +1,7 @@
 from lxml.html import etree
 import traceback
 
-text = open(r'py\parse_html\source_file\html.txt', 'r', encoding='utf-8').read()
+text = open(r'py\parse_html\source_file\other_html.txt', 'r', encoding='utf-8').read()
 total_html = etree.HTML(text)
 
 metadatas = total_html.xpath("//div[@class='infinite-list-wrapper']/div[position()=1]/div[position()>1]")
@@ -66,8 +66,16 @@ for ii, metadata in enumerate(metadatas):
                 cate_name = '时蔬七菜组合'
             elif '居家调味大礼包' in goods_name:
                 cate_name = '居家调味大礼包'
+            elif '蔬菜包' in goods_name:
+                cate_name = '蔬菜包'
+            elif '葵花籽油' in goods_name:
+                cate_name = '葵花籽油'
+            elif '小笼包' in goods_name:
+                cate_name = '小笼包'
+            elif '老母鸡' in goods_name:
+                cate_name = '鸡鸭'
             else:
-                cate_name = '-1' * 100
+                cate_name = goods_name
             cate_no = tmp_goods_count_new[jj]
             cate_info = cate_name + 'x' + cate_no
             tmp_goods_info.append(cate_info)
@@ -78,13 +86,15 @@ for ii, metadata in enumerate(metadatas):
             order_time = tmp_order_time[1]
         else:
             order_time = tmp_order_time[0].split('下单时间:')[1]
+        meta_info = [real_name, phone, user_name, address, status, goods_info, order_time]
     except Exception as e:
         err = traceback.format_exc()
         print()
-    meta_info = [real_name, phone, user_name, address, status, goods_info, order_time]
+        meta_info = [real_name, 'error']
+
     print(ii + 1, meta_info)
     res.append('\t'.join(meta_info))
 
-with open(r'py\parse_html\test\order_info.txt', 'w', encoding='utf-8') as f:
+with open(r'py\parse_html\test\other_order_info.txt', 'w', encoding='utf-8') as f:
     for v in res:
         f.write(f'{v}\n')
