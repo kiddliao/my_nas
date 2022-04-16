@@ -55,7 +55,7 @@ def process(wb, building_number, building_details):
     for building_detail in building_details:
         # tmp_detail = '\t'.join(building_detail)
         # f.write(f'{tmp_detail}\n')
-        res += building_detail
+        res += [building_detail]
     # f.write('\n' * 5)
     res.append([''] * 6)
 
@@ -117,4 +117,4 @@ for info_list in res:
             print()
     row += 1
 
-wb.save(r'D:\CODE\my_nas\py\duoduomaicai_scripts\test\other_order_info.txt')
+wb.save(r'D:\CODE\my_nas\py\duoduomaicai_scripts\test\4-17_generate.xlsx')
