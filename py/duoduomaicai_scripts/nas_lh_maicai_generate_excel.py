@@ -1,10 +1,12 @@
 import os
 import openpyxl
+from openpyxl.utils import get_column_letter, column_index_from_string
+from openpyxl.styles import Alignment
 
 with open(r'D:\CODE\my_nas\py\duoduomaicai_scripts\source_file\maicai_orders.txt', 'r', encoding='utf-8') as f:
     lines = f.readlines()
 
-wb = openpyxl.load_workbook(r'D:\CODE\my_nas\py\duoduomaicai_scripts\source_file\4-17.xlsx')
+wb = openpyxl.load_workbook(r'D:\CODE\my_nas\py\duoduomaicai_scripts\source_file\4-30.xlsx')
 
 wb.create_sheet(index=len(wb.worksheets), title='商品总表')
 
@@ -112,9 +114,25 @@ for info_list in res:
     for uninsert_data in info_list:
         try:
             sheet.cell(row, col).value = uninsert_data
+            sheet.cell(row, col).alignment = Alignment(horizontal='center', vertical='center')
             col += 1
         except:
             print()
     row += 1
 
-wb.save(r'D:\CODE\my_nas\py\duoduomaicai_scripts\test\4-17_generate.xlsx')
+# 调整列宽
+def adjust_width(wb):
+    for sheed_id in range(len(wb.worksheets)):
+        sheet = wb.worksheets[sheed_id]
+        max_column = sheet.max_column
+        max_row = sheet.max_row
+
+        for col in range(1, max_column + 1):
+            max_width = 1
+            for row in range(1, max_row + 1):
+                width = len(str(sheet.cell(row, col).value))
+                max_width = max(max_width, width)
+            sheet.column_dimensions[get_column_letter(col)].width += max_width
+adjust_width(wb)
+
+wb.save(r'D:\CODE\my_nas\py\duoduomaicai_scripts\test\4-30_generate.xlsx')
